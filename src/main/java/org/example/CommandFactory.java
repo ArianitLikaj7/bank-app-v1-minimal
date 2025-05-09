@@ -1,7 +1,7 @@
-package org.example.server.commands;
+package org.example;
 
 /**
- * Factory to create command instances based on input.
+ * Creates command objects based on user input.
  */
 public class CommandFactory {
 

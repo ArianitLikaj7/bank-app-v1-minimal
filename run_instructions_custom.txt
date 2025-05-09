@@ -1,63 +1,46 @@
-==============================
-Bank Application – Run Instructions
-==============================
+===============================
+ Bank App – Simple Instructions
+===============================
 
-This guide assumes your project files follow this path structure:
+1. Open a terminal and go to your project folder (where the `src` folder is located).
 
-C:\Users\YourUsername\Desktop\bank-app\src\main\java\org\example\...
+2. Then run:
 
----------------------------------------
-STEP 1: Open Command Prompt
----------------------------------------
-Navigate to the project source directory:
+   cd src\main\java
 
-cd C:\Users\PULSE Electronics\Desktop\bank-app\src\main\java
+3. Compile the classes:
 
----------------------------------------
-STEP 2: Compile All Java Classes
----------------------------------------
-javac org\example\server\BankServer.java org\example\server\ClientHandler.java ^
-org\example\server\Bank.java org\example\client\BankClient.java ^
-org\example\common\Account.java org\example\common\Message.java ^
-org\example\server\commands\*.java
+   javac org\example\*.java
 
----------------------------------------
-STEP 3: Start the Server
----------------------------------------
-In the same terminal window:
+4. Start the server:
 
-java org.example.server.BankServer
+   java org.example.BankServer
 
-You should see:
-"Bank Server started on port 12345."
+   ➤ You will be asked to enter a port number (e.g., 12345).
+   (Leave this terminal open after the server starts.)
 
----------------------------------------
-STEP 4: Start the Client (in a new terminal)
----------------------------------------
-Open a new terminal window, go to the same directory:
+5. In a new terminal window:
 
-cd C:\Users\PULSE Electronics\Desktop\bank-app\src\main\java
+   cd src\main\java
+   java org.example.BankClient
 
-Then run:
+   ➤ You will be asked to enter the server address (e.g., localhost) and the same port number used when starting the server.
 
-java org.example.client.BankClient
+6. Try the following commands in the client terminal:
 
----------------------------------------
-STEP 5: Use the Following Test Commands
----------------------------------------
+   REGISTER|john|1234
+   LOGIN|john|1234
+   DEPOSIT|john|1234|100
+   WITHDRAW|john|1234|50
+   BALANCE|john|1234
 
-REGISTER|john|1234
-LOGIN|john|1234
-DEPOSIT|john|1234|100
-WITHDRAW|john|1234|50
-BALANCE|john|1234
+   Optional invalid command:
+   HELLO|test
 
-Optional error command:
-HELLO|test
-
----------------------------------------
-NOTES:
----------------------------------------
-- You must start the server before starting the client.
-- Make sure you run both commands inside the src\main\java directory.
-- All account data is stored in-memory.
+----------------------------------
+💡 Notes:
+----------------------------------
+- Always start the server before the client.
+- Make sure to stay in the `src\main\java` directory while running commands.
+- The port must match between server and client.
+- All data is stored in memory and will be lost when the server stops.

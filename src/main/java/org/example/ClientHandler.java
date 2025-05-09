@@ -1,18 +1,16 @@
-package org.example.server;
-
-import org.example.server.commands.Command;
-import org.example.server.commands.CommandFactory;
+package org.example;
 
 import java.io.*;
 import java.net.Socket;
 
 /**
- * Handles a single client in a separate thread.
+ * Handles communication with a single client.
  */
 public class ClientHandler implements Runnable {
     private final Socket socket;
     private final Bank bank;
 
+    // Constructor to pass the socket and shared bank object
     public ClientHandler(Socket socket, Bank bank) {
         this.socket = socket;
         this.bank = bank;
@@ -25,14 +23,21 @@ public class ClientHandler implements Runnable {
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true)
         ) {
             String inputLine;
+
+            // Read commands from client
             while ((inputLine = in.readLine()) != null) {
-                String[] parts = inputLine.split("\\|");
+                String[] parts = inputLine.split("\\|"); // Split input using |
                 Command command = CommandFactory.createCommand(parts[0]);
-                String response = (command != null) ? command.execute(parts, bank) : "ERROR|Unknown command";
-                out.println(response);
+
+                if (command != null) {
+                    String response = command.execute(parts, bank);
+                    out.println(response);
+                } else {
+                    out.println("ERROR|Unknown command");
+                }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Client disconnected: " + e.getMessage());
         }
     }
 }
